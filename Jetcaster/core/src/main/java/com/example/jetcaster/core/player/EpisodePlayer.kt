@@ -43,7 +43,17 @@ interface EpisodePlayer {
      */
     var currentEpisode: PlayerEpisode?
 
+    /**
+     * The speed of which the player increments
+     */
+    var playerSpeed: Duration
+
     fun addToQueue(episode: PlayerEpisode)
+
+    /*
+    * Flushes the queue
+    */
+    fun removeAllFromQueue()
 
     /**
      * Plays the current episode
@@ -54,6 +64,11 @@ interface EpisodePlayer {
      * Plays the specified episode
      */
     fun play(playerEpisode: PlayerEpisode)
+
+    /**
+     * Plays the specified list of episodes
+     */
+    fun play(playerEpisodes: List<PlayerEpisode>)
 
     /**
      * Pauses the currently played episode

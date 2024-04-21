@@ -69,6 +69,8 @@ class MockEpisodePlayer(
         }
     }
 
+    override var playerSpeed: Duration = Duration.ofSeconds(1)
+
     override val playerState: StateFlow<EpisodePlayerState> = _playerState.asStateFlow()
 
     override var currentEpisode: PlayerEpisode? by _currentEpisode
@@ -76,6 +78,10 @@ class MockEpisodePlayer(
         queue.update {
             it + episode
         }
+    }
+
+    override fun removeAllFromQueue() {
+        queue.value = emptyList()
     }
 
     override fun play() {
@@ -90,8 +96,8 @@ class MockEpisodePlayer(
         timerJob = coroutineScope.launch {
             // Increment timer by a second
             while (isActive && timeElapsed.value < episode.duration) {
-                delay(1000L)
-                timeElapsed.update { it + Duration.ofSeconds(1) }
+                delay(playerSpeed.toMillis())
+                timeElapsed.update { it + playerSpeed }
             }
 
             // Once done playing, see if
@@ -105,24 +111,31 @@ class MockEpisodePlayer(
     }
 
     override fun play(playerEpisode: PlayerEpisode) {
+        play(listOf(playerEpisode))
+    }
+
+    override fun play(playerEpisodes: List<PlayerEpisode>) {
         if (isPlaying.value) {
             pause()
         }
 
         // Keep the currently playing episode in the queue
         val playingEpisode = _currentEpisode.value
-        queue.update {
-            val previousList = if (it.contains(playerEpisode)) {
-                val mutableList = it.toMutableList()
-                mutableList.remove(playerEpisode)
-                mutableList
-            } else {
-                it
+        var previousList: List<PlayerEpisode> = emptyList()
+        queue.update { queue ->
+            playerEpisodes.map { episode ->
+                if (queue.contains(episode)) {
+                    val mutableList = queue.toMutableList()
+                    mutableList.remove(episode)
+                    previousList = mutableList
+                } else {
+                    previousList = queue
+                }
             }
             if (playingEpisode != null) {
-                listOf(playerEpisode, playingEpisode) + previousList
+                playerEpisodes + listOf(playingEpisode) + previousList
             } else {
-                listOf(playerEpisode) + previousList
+                playerEpisodes + previousList
             }
         }
 
