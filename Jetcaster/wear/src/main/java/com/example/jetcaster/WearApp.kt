@@ -24,22 +24,25 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
+import com.example.jetcaster.latest_episodes.LatestEpisodesScreen
+import com.example.jetcaster.podcasts.PodcastsScreen
+import com.example.jetcaster.queue.QueueScreen
 import com.example.jetcaster.theme.WearAppTheme
 import com.example.jetcaster.ui.Episode
 import com.example.jetcaster.ui.JetcasterNavController.navigateToEpisode
 import com.example.jetcaster.ui.JetcasterNavController.navigateToLatestEpisode
+import com.example.jetcaster.ui.JetcasterNavController.navigateToPlaybackSpeed
 import com.example.jetcaster.ui.JetcasterNavController.navigateToPodcastDetails
 import com.example.jetcaster.ui.JetcasterNavController.navigateToUpNext
 import com.example.jetcaster.ui.JetcasterNavController.navigateToYourPodcast
 import com.example.jetcaster.ui.LatestEpisodes
+import com.example.jetcaster.ui.PlaybackSpeed
 import com.example.jetcaster.ui.PodcastDetails
 import com.example.jetcaster.ui.UpNext
 import com.example.jetcaster.ui.YourPodcasts
 import com.example.jetcaster.ui.episode.EpisodeScreen
-import com.example.jetcaster.ui.home.HomeScreen
-import com.example.jetcaster.ui.library.LatestEpisodesScreen
-import com.example.jetcaster.ui.library.PodcastsScreen
-import com.example.jetcaster.ui.library.QueueScreen
+import com.example.jetcaster.ui.library.LibraryScreen
+import com.example.jetcaster.ui.player.PlaybackSpeedScreen
 import com.example.jetcaster.ui.player.PlayerScreen
 import com.example.jetcaster.ui.podcast.PodcastDetailsScreen
 import com.google.android.horologist.audio.ui.VolumeViewModel
@@ -69,13 +72,16 @@ fun WearApp() {
                     onVolumeClick = {
                         navController.navigateToVolume()
                     },
+                    onPlaybackSpeedChangeClick = {
+                        navController.navigateToPlaybackSpeed()
+                    },
                 )
             },
             libraryScreen = {
-                HomeScreen(
+                LibraryScreen(
                     onLatestEpisodeClick = { navController.navigateToLatestEpisode() },
                     onYourPodcastClick = { navController.navigateToYourPodcast() },
-                    onUpNextClick = { navController.navigateToUpNext() }
+                    onUpNextClick = { navController.navigateToUpNext() },
                 )
             },
             categoryEntityScreen = { _, _ -> },
@@ -136,6 +142,9 @@ fun WearApp() {
                             navController.navigateToYourPodcast()
                         }
                     )
+                }
+                composable(route = PlaybackSpeed.navRoute) {
+                    PlaybackSpeedScreen()
                 }
             },
 
