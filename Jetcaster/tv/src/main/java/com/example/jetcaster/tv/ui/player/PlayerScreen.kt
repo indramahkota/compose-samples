@@ -17,6 +17,7 @@
 package com.example.jetcaster.tv.ui.player
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,10 +40,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.BlendMode
@@ -175,6 +176,10 @@ private fun EpisodePlayerWithBackground(
 ) {
     val episodePlayer = remember { FocusRequester() }
 
+    LaunchedEffect(Unit) {
+        episodePlayer.requestFocus()
+    }
+
     BackgroundContainer(
         playerEpisode = playerEpisode,
         modifier = modifier,
@@ -205,7 +210,6 @@ private fun EpisodePlayerWithBackground(
             contentPadding = JetcasterAppDefaults.overScanMargin.player.copy(top = 0.dp)
                 .intoPaddingValues(),
             offset = DpOffset(0.dp, 136.dp),
-            previousComponent = episodePlayer
         )
     }
 }
@@ -288,6 +292,7 @@ private fun EpisodeControl(
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun PlayerControl(
     isPlaying: Boolean,
@@ -302,17 +307,27 @@ private fun PlayerControl(
     modifier: Modifier = Modifier,
     focusRequester: FocusRequester = remember { FocusRequester() }
 ) {
+    val playPauseButton = remember { FocusRequester() }
+
     Column(
         verticalArrangement = Arrangement.spacedBy(JetcasterAppDefaults.gap.item),
         modifier = modifier,
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(
                 JetcasterAppDefaults.gap.default,
                 Alignment.CenterHorizontally
             ),
             verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .focusRequester(focusRequester)
+                .onFocusChanged {
+                    if (it.isFocused) {
+                        playPauseButton.requestFocus()
+                    }
+                }
+                .focusable(),
         ) {
             PreviousButton(
                 onClick = previous,
@@ -333,7 +348,7 @@ private fun PlayerControl(
                 },
                 modifier = Modifier
                     .size(JetcasterAppDefaults.iconButtonSize.large.intoDpSize())
-                    .focusRequester(focusRequester)
+                    .focusRequester(playPauseButton)
             )
             SkipButton(
                 onClick = skip,
@@ -421,6 +436,7 @@ private fun NoEpisodeInQueue(
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun PlayerQueueOverlay(
     playerEpisodeList: EpisodeList,
@@ -437,7 +453,6 @@ private fun PlayerQueueOverlay(
         drawRect(brush, blendMode = BlendMode.Multiply)
     },
     offset: DpOffset = DpOffset.Zero,
-    previousComponent: FocusRequester = FocusRequester.Default,
 ) {
     var hasFocus by remember { mutableStateOf(false) }
     val actualOffset = if (hasFocus) {
@@ -463,11 +478,6 @@ private fun PlayerQueueOverlay(
             modifier = Modifier
                 .offset(actualOffset.x, actualOffset.y)
                 .onFocusChanged { hasFocus = it.hasFocus }
-                .focusProperties {
-                    previous = previousComponent
-                    next = previous
-                    up = previous
-                },
         )
     }
 }
