@@ -58,6 +58,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
@@ -84,8 +85,10 @@ import androidx.compose.material3.adaptive.separatingVerticalHingeBounds
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -378,36 +381,47 @@ private fun HomeAppBar(
     isExpanded: Boolean,
     modifier: Modifier = Modifier,
 ) {
+    var queryText by remember {
+        mutableStateOf("")
+    }
     Row(
         horizontalArrangement = Arrangement.End,
         modifier = modifier
             .fillMaxWidth()
             .background(Color.Transparent)
-            .padding(end = 16.dp, top = 8.dp, bottom = 8.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         SearchBar(
-            query = "",
-            onQueryChange = {},
-            placeholder = {
-                Text(stringResource(id = R.string.search_for_a_podcast))
-            },
-            onSearch = {},
-            active = false,
-            onActiveChange = {},
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = null
+            inputField = {
+                SearchBarDefaults.InputField(
+                    query = queryText,
+                    onQueryChange = { queryText = it },
+                    onSearch = {},
+                    expanded = false,
+                    onExpandedChange = {},
+                    enabled = true,
+                    placeholder = {
+                        Text(stringResource(id = R.string.search_for_a_podcast))
+                    },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = null
+                        )
+                    },
+                    trailingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.AccountCircle,
+                            contentDescription = stringResource(R.string.cd_account)
+                        )
+                    },
+                    interactionSource = null,
+                    modifier = if (isExpanded) Modifier.fillMaxWidth() else Modifier
                 )
             },
-            trailingIcon = {
-                Icon(
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = stringResource(R.string.cd_account)
-                )
-            },
-            modifier = if (isExpanded) Modifier else Modifier.fillMaxWidth()
-        ) { }
+            expanded = false,
+            onExpandedChange = {}
+        ) {}
     }
 }
 
