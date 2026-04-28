@@ -34,7 +34,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -69,7 +69,7 @@ fun SearchScreen(
     modifier: Modifier = Modifier,
     searchScreenViewModel: SearchScreenViewModel = hiltViewModel(),
 ) {
-    val uiState by searchScreenViewModel.uiStateFlow.collectAsState()
+    val uiState by searchScreenViewModel.uiStateFlow.collectAsStateWithLifecycle()
 
     when (val s = uiState) {
         SearchScreenUiState.Loading -> Loading(modifier = modifier)

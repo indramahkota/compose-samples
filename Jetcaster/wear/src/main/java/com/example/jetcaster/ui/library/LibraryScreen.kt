@@ -24,7 +24,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -76,7 +76,7 @@ fun LibraryScreen(
     modifier: Modifier = Modifier,
     libraryScreenViewModel: LibraryViewModel = hiltViewModel(),
 ) {
-    val uiState by libraryScreenViewModel.uiState.collectAsState()
+    val uiState by libraryScreenViewModel.uiState.collectAsStateWithLifecycle()
     val placeholderState = rememberPlaceholderState(isVisible = uiState is LibraryScreenUiState.Loading)
 
     val contentPadding = rememberResponsiveColumnPadding(

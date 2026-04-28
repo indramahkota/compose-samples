@@ -21,7 +21,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -52,7 +52,7 @@ fun LibraryScreen(
     playEpisode: (PlayerEpisode) -> Unit,
     libraryScreenViewModel: LibraryScreenViewModel = hiltViewModel(),
 ) {
-    val uiState by libraryScreenViewModel.uiState.collectAsState()
+    val uiState by libraryScreenViewModel.uiState.collectAsStateWithLifecycle()
     when (val s = uiState) {
         LibraryScreenUiState.Loading -> Loading(modifier = modifier)
         LibraryScreenUiState.NoSubscribedPodcast -> {

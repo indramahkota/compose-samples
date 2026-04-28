@@ -22,7 +22,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -51,7 +51,7 @@ fun DiscoverScreen(
     modifier: Modifier = Modifier,
     discoverScreenViewModel: DiscoverScreenViewModel = hiltViewModel(),
 ) {
-    val uiState by discoverScreenViewModel.uiState.collectAsState()
+    val uiState by discoverScreenViewModel.uiState.collectAsStateWithLifecycle()
 
     when (val s = uiState) {
         DiscoverScreenUiState.Loading -> {

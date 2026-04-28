@@ -31,7 +31,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -78,7 +78,7 @@ fun PodcastDetailsScreen(
     modifier: Modifier = Modifier,
     podcastDetailsScreenViewModel: PodcastDetailsScreenViewModel = hiltViewModel(),
 ) {
-    val uiState by podcastDetailsScreenViewModel.uiStateFlow.collectAsState()
+    val uiState by podcastDetailsScreenViewModel.uiStateFlow.collectAsStateWithLifecycle()
     when (val s = uiState) {
         PodcastScreenUiState.Loading -> Loading(modifier = modifier)
         PodcastScreenUiState.Error -> ErrorState(backToHome = backToHomeScreen, modifier = modifier)
