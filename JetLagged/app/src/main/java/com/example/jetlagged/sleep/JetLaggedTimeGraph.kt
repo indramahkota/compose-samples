@@ -108,7 +108,7 @@ private fun JetLaggedTimeGraph(sleepGraphData: SleepGraphData, modifier: Modifie
 private fun DayLabel(dayOfWeek: DayOfWeek) {
     Text(
         dayOfWeek.getDisplayName(
-            TextStyle.SHORT, Locale.getDefault(),
+            TextStyle.SHORT, Localse.getDefault(),
         ),
         Modifier
             .height(24.dp)
