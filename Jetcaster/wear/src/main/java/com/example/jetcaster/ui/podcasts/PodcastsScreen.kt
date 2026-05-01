@@ -52,9 +52,10 @@ import coil.compose.AsyncImage
 import com.example.jetcaster.R
 import com.example.jetcaster.core.model.PodcastInfo
 import com.example.jetcaster.ui.preview.WearPreviewPodcasts
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ColumnItemType
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
-
+@OptIn(ExperimentalHorologistApi::class)
 @Composable
 fun PodcastsScreen(
     podcastsViewModel: PodcastsViewModel = hiltViewModel(),
@@ -89,6 +90,7 @@ fun PodcastsScreen(
     )
 }
 
+@OptIn(ExperimentalHorologistApi::class)
 @Composable
 fun PodcastsScreen(
     podcastsScreenState: PodcastsScreenState,

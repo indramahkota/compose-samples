@@ -56,9 +56,11 @@ import com.example.jetcaster.R
 import com.example.jetcaster.core.player.model.PlayerEpisode
 import com.example.jetcaster.ui.components.MediaContent
 import com.example.jetcaster.ui.preview.WearPreviewEpisodes
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ColumnItemType
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
 
+@OptIn(ExperimentalHorologistApi::class)
 @Composable fun QueueScreen(
     onPlayButtonClick: () -> Unit,
     onEpisodeItemClick: (PlayerEpisode) -> Unit,
@@ -80,7 +82,7 @@ import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadd
         onDismiss = onDismiss,
     )
 }
-
+@OptIn(ExperimentalHorologistApi::class)
 @Composable
 fun QueueScreen(
     uiState: QueueScreenState,

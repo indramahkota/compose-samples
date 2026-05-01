@@ -31,6 +31,7 @@ import kotlinx.coroutines.flow.stateIn
 /**
  * ViewModel that handles the business logic and screen state of the Queue screen.
  */
+@OptIn(ExperimentalHorologistApi::class)
 @HiltViewModel
 class QueueViewModel @Inject constructor(private val episodePlayer: EpisodePlayer) : ViewModel() {
 
