@@ -45,6 +45,7 @@ import com.example.jetlagged.ui.theme.SmallHeadingStyle
 import java.time.DayOfWeek
 import java.time.format.TextStyle
 import java.util.Locale
+import androidx.compose.ui.platform.LocalLocale
 
 @Composable
 fun JetLaggedSleepGraphCard(sleepState: SleepGraphData, modifier: Modifier = Modifier) {
@@ -108,7 +109,7 @@ private fun JetLaggedTimeGraph(sleepGraphData: SleepGraphData, modifier: Modifie
 private fun DayLabel(dayOfWeek: DayOfWeek) {
     Text(
         dayOfWeek.getDisplayName(
-            TextStyle.SHORT, Localse.getDefault(),
+            TextStyle.SHORT, LocalLocale.current.platformLocale,
         ),
         Modifier
             .height(24.dp)
