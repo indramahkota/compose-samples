@@ -33,7 +33,6 @@ package com.example.jetcaster.ui.player
  */
 
 import android.content.Context
-import kotlin.OptIn
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -78,6 +77,7 @@ import com.google.android.horologist.media.ui.material3.components.display.Loadi
 import com.google.android.horologist.media.ui.material3.components.display.TextMediaDisplay
 import com.google.android.horologist.media.ui.material3.screens.player.PlayerScreen
 import java.time.Duration
+import kotlin.OptIn
 
 @OptIn(ExperimentalHorologistApi::class)
 @Composable

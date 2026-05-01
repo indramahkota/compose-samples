@@ -53,7 +53,8 @@ import com.google.android.horologist.compose.layout.ColumnItemType
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
 
 @OptIn(ExperimentalHorologistApi::class)
-@Composable fun PodcastDetailsScreen(
+@Composable
+fun PodcastDetailsScreen(
     onPlayButtonClick: () -> Unit,
     onEpisodeItemClick: (PlayerEpisode) -> Unit,
     onDismiss: () -> Unit,
