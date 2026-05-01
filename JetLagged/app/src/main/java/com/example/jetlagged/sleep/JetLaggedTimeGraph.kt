@@ -36,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.jetlagged.BasicInformationalCard
@@ -45,7 +46,6 @@ import com.example.jetlagged.ui.theme.SmallHeadingStyle
 import java.time.DayOfWeek
 import java.time.format.TextStyle
 import java.util.Locale
-import androidx.compose.ui.platform.LocalLocale
 
 @Composable
 fun JetLaggedSleepGraphCard(sleepState: SleepGraphData, modifier: Modifier = Modifier) {
