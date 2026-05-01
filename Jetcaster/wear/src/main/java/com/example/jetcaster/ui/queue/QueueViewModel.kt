@@ -62,7 +62,6 @@ class QueueViewModel @Inject constructor(private val episodePlayer: EpisodePlaye
     }
 }
 
-@ExperimentalHorologistApi
 sealed interface QueueScreenState {
 
     data object Loading : QueueScreenState
