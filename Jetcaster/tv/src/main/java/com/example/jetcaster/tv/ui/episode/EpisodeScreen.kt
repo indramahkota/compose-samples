@@ -24,12 +24,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import com.example.jetcaster.core.player.model.PlayerEpisode
@@ -56,7 +56,9 @@ fun EpisodeScreen(
     val screenModifier = modifier.fillMaxSize()
     when (val s = uiState) {
         EpisodeScreenUiState.Loading -> Loading(modifier = screenModifier)
+
         EpisodeScreenUiState.Error -> ErrorState(backToHome = backToHome, modifier = screenModifier)
+
         is EpisodeScreenUiState.Ready -> EpisodeDetailsWithBackground(
             playerEpisode = s.playerEpisode,
             playEpisode = {
