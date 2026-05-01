@@ -60,6 +60,7 @@ import androidx.compose.ui.layout.MeasureScope
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -187,7 +188,7 @@ fun JetsnackBottomBar(
         ) {
             val configuration = LocalConfiguration.current
             val currentLocale: Locale =
-                ConfigurationCompat.getLocales(configuration).get(0) ?: Locale.getDefault()
+                ConfigurationCompat.getLocales(configuration).get(0) ?: LocalLocale.current.platformLocale
 
             tabs.forEach { section ->
                 val selected = section == currentSection
