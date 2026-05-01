@@ -440,7 +440,7 @@ private fun HomeScreen(
     }
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@OptIn(ExperimentalMaterial3AdaptiveApi::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun PillToolbar(selectedHomeCategory: HomeCategory, onHomeAction: (HomeAction) -> Unit, modifier: Modifier = Modifier) {
     HorizontalFloatingToolbar(

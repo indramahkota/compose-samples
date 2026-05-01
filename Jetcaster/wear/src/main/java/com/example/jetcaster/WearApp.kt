@@ -49,6 +49,7 @@ import com.example.jetcaster.ui.player.PlayerScreen
 import com.example.jetcaster.ui.podcast.PodcastDetailsScreen
 import com.example.jetcaster.ui.podcasts.PodcastsScreen
 import com.example.jetcaster.ui.queue.QueueScreen
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.material3.VolumeScreen
 import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToPlayer
@@ -56,6 +57,7 @@ import com.google.android.horologist.media.ui.material3.navigation.MediaNavContr
 import com.google.android.horologist.media.ui.material3.navigation.NavigationScreens
 import com.google.android.horologist.media.ui.material3.screens.playerlibrarypager.PlayerLibraryPagerScreen
 
+@OptIn(ExperimentalHorologistApi::class)
 @Composable
 fun WearApp(navController: NavHostController) {
     val navHostState = rememberSwipeDismissableNavHostState()
