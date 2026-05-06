@@ -58,6 +58,7 @@ import kotlinx.coroutines.flow.stateIn
 /**
  * ViewModel that handles the business logic and screen state of the Podcast details screen.
  */
+@OptIn(ExperimentalHorologistApi::class)
 @HiltViewModel
 class PodcastDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,

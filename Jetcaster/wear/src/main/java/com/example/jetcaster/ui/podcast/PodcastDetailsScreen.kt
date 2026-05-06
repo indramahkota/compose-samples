@@ -48,10 +48,13 @@ import com.example.jetcaster.core.domain.testing.PreviewPodcastEpisodes
 import com.example.jetcaster.core.player.model.PlayerEpisode
 import com.example.jetcaster.ui.components.MediaContent
 import com.example.jetcaster.ui.preview.WearPreviewEpisodes
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ColumnItemType
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
 
-@Composable fun PodcastDetailsScreen(
+@OptIn(ExperimentalHorologistApi::class)
+@Composable
+fun PodcastDetailsScreen(
     onPlayButtonClick: () -> Unit,
     onEpisodeItemClick: (PlayerEpisode) -> Unit,
     onDismiss: () -> Unit,
@@ -72,6 +75,7 @@ import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadd
     )
 }
 
+@OptIn(ExperimentalHorologistApi::class)
 @Composable
 fun PodcastDetailsScreen(
     uiState: PodcastDetailsScreenState,
@@ -116,6 +120,7 @@ fun PodcastDetailsScreen(
                     title = { stringResource(R.string.podcasts_no_episode_podcasts) },
                 )
             }
+
             PodcastDetailsScreenState.Loading -> {
                 PodcastDetailScreenLoaded(
                     emptyList(),
@@ -205,6 +210,7 @@ fun ButtonsContent(
     }
 }
 
+@OptIn(ExperimentalHorologistApi::class)
 @WearPreviewDevices
 @WearPreviewFontScales
 @Composable

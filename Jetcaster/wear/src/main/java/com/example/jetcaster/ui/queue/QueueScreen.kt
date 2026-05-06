@@ -56,10 +56,13 @@ import com.example.jetcaster.R
 import com.example.jetcaster.core.player.model.PlayerEpisode
 import com.example.jetcaster.ui.components.MediaContent
 import com.example.jetcaster.ui.preview.WearPreviewEpisodes
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ColumnItemType
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
 
-@Composable fun QueueScreen(
+@OptIn(ExperimentalHorologistApi::class)
+@Composable
+fun QueueScreen(
     onPlayButtonClick: () -> Unit,
     onEpisodeItemClick: (PlayerEpisode) -> Unit,
     onDismiss: () -> Unit,
@@ -80,7 +83,7 @@ import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadd
         onDismiss = onDismiss,
     )
 }
-
+@OptIn(ExperimentalHorologistApi::class)
 @Composable
 fun QueueScreen(
     uiState: QueueScreenState,
@@ -114,6 +117,7 @@ fun QueueScreen(
                 contentPadding = contentPadding,
                 placeholderState = placeholderState,
             )
+
             QueueScreenState.Loading -> QueueScreenLoaded(
                 episodeList = emptyList(),
                 onPlayButtonClick = { },
@@ -124,6 +128,7 @@ fun QueueScreen(
                 contentPadding = contentPadding,
                 placeholderState = placeholderState,
             )
+
             QueueScreenState.Empty -> QueueScreenEmpty(onDismiss)
         }
     }
@@ -234,7 +239,7 @@ fun ButtonsContent(
                 Icon(
                     painter = painterResource(id = R.drawable.delete),
                     contentDescription =
-                    stringResource(id = R.string.button_delete_queue_content_description),
+                        stringResource(id = R.string.button_delete_queue_content_description),
                 )
             }
         }

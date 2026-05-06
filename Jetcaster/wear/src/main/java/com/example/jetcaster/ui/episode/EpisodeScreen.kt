@@ -60,11 +60,12 @@ import com.example.jetcaster.core.player.model.toPlayerEpisode
 import com.example.jetcaster.designsystem.component.HtmlTextContainer
 import com.example.jetcaster.ui.components.MediumDateFormatter
 import com.example.jetcaster.ui.preview.WearPreviewEpisodes
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ColumnItemType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.listTextPadding
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
 
-@OptIn(ExperimentalWearMaterialApi::class)
+@OptIn(ExperimentalWearMaterialApi::class, ExperimentalHorologistApi::class)
 @Composable
 fun EpisodeScreen(
     onPlayButtonClick: () -> Unit,
@@ -86,6 +87,7 @@ fun EpisodeScreen(
     )
 }
 
+@OptIn(ExperimentalHorologistApi::class)
 @Composable
 fun EpisodeScreen(
     uiState: EpisodeScreenState,
@@ -272,6 +274,7 @@ private fun TransformingLazyColumnScope.episodeInfoContent(episode: PlayerEpisod
                         duration.toMinutes().toInt(),
                     )
                 }
+
                 // Otherwise we just use the date
                 else -> MediumDateFormatter.format(published)
             },
@@ -297,6 +300,7 @@ private fun TransformingLazyColumnScope.episodeInfoContent(episode: PlayerEpisod
     }
 }
 
+@OptIn(ExperimentalHorologistApi::class)
 @WearPreviewDevices
 @WearPreviewFontScales
 @Composable

@@ -15,7 +15,6 @@
  */
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias libs.plugins.roborazzi
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
@@ -54,16 +53,16 @@ android {
             includeAndroidResources true
         }
     }
-    
-    kotlinOptions {
+
+    /*kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.majorVersion
         freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
         freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
-    }
+    }*/
     buildFeatures {
         compose true
     }
-    
+
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"

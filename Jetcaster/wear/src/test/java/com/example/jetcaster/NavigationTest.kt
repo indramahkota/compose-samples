@@ -16,7 +16,7 @@
 
 package com.example.jetcaster
 
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import com.example.jetcaster.ui.JetcasterNavController.navigateToUpNext
 import org.junit.Assert.assertEquals
 import org.junit.Rule

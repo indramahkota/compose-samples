@@ -34,7 +34,6 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -49,6 +48,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.FilterChip
 import androidx.tv.material3.Icon
@@ -69,10 +69,11 @@ fun SearchScreen(
     modifier: Modifier = Modifier,
     searchScreenViewModel: SearchScreenViewModel = hiltViewModel(),
 ) {
-    val uiState by searchScreenViewModel.uiStateFlow.collectAsState()
+    val uiState by searchScreenViewModel.uiStateFlow.collectAsStateWithLifecycle()
 
     when (val s = uiState) {
         SearchScreenUiState.Loading -> Loading(modifier = modifier)
+
         is SearchScreenUiState.Ready -> Ready(
             keyword = s.keyword,
             categorySelectionList = s.categorySelectionList,
@@ -257,7 +258,7 @@ private fun SearchResult(
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),
         horizontalArrangement =
-        Arrangement.spacedBy(JetcasterAppDefaults.gap.podcastRow),
+            Arrangement.spacedBy(JetcasterAppDefaults.gap.podcastRow),
         verticalArrangement = Arrangement.spacedBy(JetcasterAppDefaults.gap.podcastRow),
         modifier = modifier,
     ) {

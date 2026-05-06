@@ -63,6 +63,7 @@ import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material3.MaterialTheme
 import com.example.jetcaster.R
 import com.example.jetcaster.ui.components.SettingsButtons
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.volumeRotaryBehavior
@@ -76,7 +77,9 @@ import com.google.android.horologist.media.ui.material3.components.display.Loadi
 import com.google.android.horologist.media.ui.material3.components.display.TextMediaDisplay
 import com.google.android.horologist.media.ui.material3.screens.player.PlayerScreen
 import java.time.Duration
+import kotlin.OptIn
 
+@OptIn(ExperimentalHorologistApi::class)
 @Composable
 fun PlayerScreen(
     volumeViewModel: VolumeViewModel,
@@ -96,7 +99,11 @@ fun PlayerScreen(
 }
 
 @androidx.annotation.OptIn(UnstableApi::class)
-@OptIn(ExperimentalWearFoundationApi::class, ExperimentalWearMaterialApi::class)
+@OptIn(
+    ExperimentalHorologistApi::class,
+    ExperimentalWearFoundationApi::class,
+    ExperimentalWearMaterialApi::class,
+)
 @Composable
 private fun PlayerScreen(
     playerScreenViewModel: PlayerViewModel,
@@ -111,6 +118,7 @@ private fun PlayerScreen(
 
     when (val state = uiState) {
         PlayerScreenUiState.Loading -> LoadingMediaDisplay(modifier)
+
         PlayerScreenUiState.Empty -> {
             PlayerScreen(
                 mediaDisplay = {
@@ -153,7 +161,9 @@ private fun PlayerScreen(
             val exoPlayer = rememberPlayer(context)
 
             DisposableEffect(exoPlayer, episode) {
-                episode?.mediaUrls?.let { exoPlayer.setMediaItems(it.map { MediaItem.fromUri(it) }) }
+                episode?.mediaUrls?.let { urls ->
+                    exoPlayer.setMediaItems(urls.map { MediaItem.fromUri(it) })
+                }
                 val mediaSession = MediaSession.Builder(context, exoPlayer).build()
 
                 exoPlayer.prepare()
@@ -256,7 +266,7 @@ private fun PlayerScreen(
                         .rotaryScrollable(
                             volumeRotaryBehavior(
                                 volumeUiStateProvider = { volumeUiState },
-                                onRotaryVolumeInput = { onUpdateVolume },
+                                onRotaryVolumeInput = onUpdateVolume,
                             ),
                             focusRequester = focusRequester,
                         ),
